@@ -1,0 +1,52 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2.2
+  Exclude:
+    - "bin/**"
+    - "db/schema.rb"
+    - "db/migrate/**"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: single_quotes
+
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+  Exclude:
+    - config/initializers/devise.rb
+
+Metrics/BlockLength:
+  Enabled: true
+  Max: 30
+  Exclude:
+    - 'config/initializers/simple_form_bootstrap.rb'
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 15
+#   Enabled: false
+
+# Lint/EmptyBlock:
+#   Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 30
+
+Style/HashSyntax:
+  Enabled: false
