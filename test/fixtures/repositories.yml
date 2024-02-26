@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: repo1
+  full_name: OwnerOne/repo1
+  language: Ruby
+  git_url: https://repo1url/
+  ssh_url: ssh://repo1url/
+  user: one
+
+two:
+  name: repo2
+  full_name: OwnerOne/repo2
+  language: Ruby
+  git_url: https://repo2url/
+  ssh_url: ssh://repo2url/
+  user: one

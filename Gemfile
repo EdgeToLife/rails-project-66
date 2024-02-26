@@ -40,11 +40,13 @@ gem 'rails-i18n'
 # gem 'file_validators'
 # gem 'image_processing'
 
-# gem 'simple_form', '~> 5.3'
+gem 'simple_form'
+
+gem 'octokit'
 
 # gem 'pundit'
 
-# gem 'aasm'
+gem 'aasm'
 
 # gem 'ransack'
 
@@ -70,6 +72,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem 'minitest-power_assert'
+  gem 'webmock'
 end
 
 group :production do

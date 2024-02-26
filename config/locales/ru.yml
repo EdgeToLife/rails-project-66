@@ -1,0 +1,5 @@
+ru:
+  web:
+    repositories:
+      form:
+        create_repository: Создать репозиторий
