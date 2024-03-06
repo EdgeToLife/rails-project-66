@@ -1,0 +1,36 @@
+mb-4
+  h1
+    = "#{t('.check')} ##{@check.id}"
+table.table
+    tbody
+      tr
+        td = t('.create_at')
+        td = @check.created_at.strftime("%d %B %Y, %H:%M")
+      tr
+        td = t('.state')
+        td = @check.state
+      tr
+        td = t('.check_successful')
+        td = @check.check_successful
+      tr
+        td = t('.errors_count')
+        td = @total_error_count
+      tr
+        td = t('.commit_id')
+        td = @check.commit_id
+
+table.table
+  thead
+    tr
+      th = t('.message')
+      th = t('.rule_id')
+      th = t('.line')
+  tbody
+    - @check.data.each do |check|
+      tr
+        td = link_to File.basename(check["filePath"])
+      - check["messages"].each do |message|
+        tr
+          td = message["message"]
+          td = message["ruleId"]
+          td = "#{message["line"]}:#{message["column"]}"

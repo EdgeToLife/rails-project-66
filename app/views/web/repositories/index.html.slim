@@ -1,4 +1,3 @@
-h1 Trololo
 .mb4
   = link_to t('.new_repository'), new_repository_path, class: 'btn btn-primary'
 
@@ -8,10 +7,9 @@ table.table.table-striped.table-hover.mb-5
       th{ scope = 'col' } = t('.name')
       th{ scope = 'col' } = t('.language')
       th{ scope = 'col' } = t('.state')
-
   tbody
     - @repositories.each_with_index do |repository, i|
       tr
-        td = repository.name
+        td = link_to repository.name, repository_path(repository)
         td = repository.language
         td = repository.state

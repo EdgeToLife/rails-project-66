@@ -1,6 +1,0 @@
-= simple_form_for(repository) do |f|
-  .form-inputs
-    = f.input :full_name, label: t('repository'), collection: @repos.map { |repo| [repo.full_name, repo.full_name] }, required: true
-  p
-  .form-actions
-    = f.button :submit, t('.create_repository'), class: 'btn btn-primary'

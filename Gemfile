@@ -35,22 +35,13 @@ gem 'omniauth-rails_csrf_protection'
 
 gem 'rails-i18n'
 
-# gem 'active_storage_validations'
-# gem 'aws-sdk-s3'
-# gem 'file_validators'
-# gem 'image_processing'
-
 gem 'simple_form'
 
 gem 'octokit'
 
-# gem 'pundit'
-
 gem 'aasm'
 
-# gem 'ransack'
-
-# gem 'kaminari'
+gem 'enumerize'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -73,6 +64,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'minitest-power_assert'
   gem 'webmock'
+  gem 'dry-container'
 end
 
 group :production do

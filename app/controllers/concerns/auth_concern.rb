@@ -29,7 +29,6 @@ module AuthConcern
 
   def sign_out
     session.delete(:user_id)
-    # session.clear
   end
 
   private

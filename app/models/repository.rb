@@ -1,18 +1,7 @@
 class Repository < ApplicationRecord
-  include AASM
-
-  aasm column: 'state' do
-    state :false, initial: true
-    state :in_progress, :completed
-
-    event :to_in_progress do
-      transitions from: :false, to: :in_progress
-    end
-
-    event :complete do
-      transitions from: :in_progress, to: :completed
-    end
-  end
+  extend Enumerize
 
   belongs_to :user
+  has_many :checks, class_name: 'Repository::Check', dependent: :destroy
+  enumerize :language, in: [:javascript, :ruby], default: nil, allow_nil: true
 end

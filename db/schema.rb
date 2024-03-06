@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_072903) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_05_011710) do
   create_table "repositories", force: :cascade do |t|
     t.string "name"
     t.string "full_name"
@@ -24,6 +24,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_072903) do
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
+  create_table "repository_checks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "repository_id", null: false
+    t.string "commit_id"
+    t.json "data"
+    t.string "state"
+    t.boolean "check_successful", default: false
+    t.integer "error_count"
+    t.index ["repository_id"], name: "index_repository_checks_on_repository_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "nickname"
@@ -33,4 +45,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_072903) do
   end
 
   add_foreign_key "repositories", "users"
+  add_foreign_key "repository_checks", "repositories"
 end
