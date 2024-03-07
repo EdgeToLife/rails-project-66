@@ -1,7 +1,5 @@
 class Api::ChecksController < ApplicationController
-  def verified_request?
-    true
-  end
+  skip_before_action :verify_authenticity_token
 
   def checks
     payload = JSON.parse(request.body.read)
@@ -11,7 +9,7 @@ class Api::ChecksController < ApplicationController
     check.to_in_progress!
 
     RepositoryAnalyzerJob.perform_later(check, repository.user.id)
-    debugger
+
     head :ok
   end
 end

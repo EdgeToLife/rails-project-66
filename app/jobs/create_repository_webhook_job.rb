@@ -11,6 +11,7 @@ class CreateRepositoryWebhookJob < ApplicationJob
         url: webhook_url,
         content_type: 'json',
         events: ['commit'],
+        csrf_token: csrf_token
       }
       client.create_hook(repo_full_name, 'web', webhook_options)
     rescue => e

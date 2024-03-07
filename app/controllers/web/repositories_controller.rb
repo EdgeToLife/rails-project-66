@@ -2,7 +2,10 @@ module Web
   class RepositoriesController < ApplicationController
     include Rails.application.routes.url_helpers
     def index
-      @repositories = Repository.includes('checks').all
+      # @repositories = Repository.includes('checks').all
+      @repositories = Repository.joins(:checks)
+                                .select('repositories.*, repository_checks.error_count AS last_error_count')
+                                .order('repository_checks.created_at DESC')
     end
 
     def new
@@ -29,7 +32,7 @@ module Web
       CreateRepositoryWebhookJob.perform_later(repo_full_name, current_user.id, form_authenticity_token)
 
       if @repository.save
-        redirect_to repositories_url(@repository), notice: t('.create_success')
+        redirect_to repositories_url, notice: t('.create_success')
       else
         render :new, status: :unprocessable_entity
       end

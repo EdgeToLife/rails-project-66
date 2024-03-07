@@ -75,4 +75,8 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.hosts.clear
+
+  config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :file
+  config.action_mailer.default_url_options = { host: 'http://localhost:3000' }
 end
