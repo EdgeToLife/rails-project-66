@@ -16,7 +16,10 @@ module Web
     def new
       @new_repository = current_user.repositories.build
       client = Octokit::Client.new access_token: current_user.token, auto_paginate: true
-      @repository_list = client.repos
+      @repository_list = client.repos.select do |repo|
+        language = repo[:language]
+        language.present? && Repository.language.values.include?(language.downcase)
+      end
     end
 
     def check

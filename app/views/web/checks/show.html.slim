@@ -5,10 +5,10 @@ table.table
     tbody
       tr
         td = t('.create_at')
-        td = @check.created_at.strftime('%d %B %Y, %H:%M')
+        td = l(@check.created_at, format: :long)
       tr
         td = t('.state')
-        td = @check.state
+        td = t(@check.state.to_s)
       tr
         td = t('.check_successful')
         td = @check.check_successful

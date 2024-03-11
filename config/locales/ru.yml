@@ -3,8 +3,57 @@ ru:
     check_fail_notification:
       dear: "Уважаемый, %{nickname}!"
       unsuccessful_check: "К сожалению, проверка репозитория %{repository} не увенчалась успехом."
+  completed: 'Завершена'
+  in_progress: 'В процессе'
+  failed: 'Ошибка'
   hexlet_copyright: '© Хекслет'
+  layouts:
+    application:
+      site_title: 'Проект: анализатор качества репозиториев'
+    shared:
+      nav:
+        login: 'Войти'
+        logout: 'Выйти'
+        repositories: 'Репозитории'
+        root: 'Главная'
+  logout_confirmation: 'Вы действительно хотите выйти?'
+  repository: 'Github'
   web:
-  repositories:
-    form:
-      create_repository: Создать репозиторий
+    auth:
+      success: 'Успешно'
+    checks:
+      show:
+        check: 'Проверка'
+        check_not_completed: 'Проверка еще не завершена'
+        check_successful: 'Проверка пройдена'
+        commit_id: 'ID коммита'
+        create_at: 'Дата создания'
+        errors_count: 'Количество замечаний'
+        line: 'Строка и символ'
+        message: 'Сообщение'
+        rule_id: 'Идентификатор правила'
+        state: 'Статус'
+    repositories:
+      check:
+        check_started: 'Проверка начата'
+      create:
+        create_success: 'Репозиторий создан'
+      form:
+        create_repository: 'Создать репозиторий'
+      index:
+        language: 'Язык'
+        name: 'Название'
+        new_repository: 'Добавить'
+        state: 'Статус последней проверки'
+      new:
+        create_repository: 'Добавить репозиторий'
+      show:
+        check_repo: 'Проверить'
+        check_successful: 'Проверка пройдена?'
+        commit_id: 'ID коммита'
+        create_at: 'Дата создания'
+        created_at: 'Дата создания'
+        full_name: 'Название'
+        language: 'Язык'
+        state: 'Статус'
+        updated_at: 'Дата обновления'
