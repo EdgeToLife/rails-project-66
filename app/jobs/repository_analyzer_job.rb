@@ -10,7 +10,6 @@ class RepositoryAnalyzerJob < ApplicationJob
     update_repository_info(check, octo_client)
     download_and_analyze_repository(check, octo_client)
     notify_user(check, user)
-
   rescue StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
     check.fail!
