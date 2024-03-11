@@ -27,12 +27,10 @@ class RepositoryAnalyzerJob < ApplicationJob
     elsif check.repository.language == 'ruby'
       rubocop_conf_path = Rails.root.join('.rubocop_ext.yml')
       cmd = "rubocop #{download_path} -c #{rubocop_conf_path} --format json"
-      puts "*******CMD*******\n#{cmd}"
       stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
         [inner_stdout.read, wait_thr.value]
       end
     end
-    puts "*******STDOUT*********\n#{stdout}"
     data = JSON.parse(stdout)
     check.update!(check_successful: exit_status.success?)
     parse_and_update_check_data(check, data)
