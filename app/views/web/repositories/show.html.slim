@@ -2,16 +2,16 @@ mb-4
   h1
     = @repository.full_name
 = link_to t('.check_repo'), check_repository_path(@repository), method: :get, class: 'btn btn-primary mb-4'
-p 
+p
   strong.me-2 = t('.full_name')
   = @repository.full_name
-p 
+p
   strong.me-2 = t('.language')
   = @repository.language
-p 
+p
   strong.me-2 = t('.created_at')
   = @repository.created_at
-p 
+p
   strong.me-2 = t('.updated_at')
   = @repository.updated_at
 hr
@@ -28,6 +28,6 @@ table.table.table-striped
         tr
           td = link_to check.id, repository_check_path(@repository, check), class: 'me-2'
           td = check.state
-          td = link_to "#{check.commit_id}", "https://github.com/#{@repository.full_name}/commit/#{check.commit_id}", target: "_blank"
+          td = link_to check.commit_id.to_s, "https://github.com/#{@repository.full_name}/commit/#{check.commit_id}", target: '_blank', rel: 'noopener'
           td = check.check_successful
           td = time_ago_in_words(check.created_at)

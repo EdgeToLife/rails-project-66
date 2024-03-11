@@ -1,9 +1,10 @@
 ru:
-  web:
-    repositories:
-      form:
-        create_repository: Создать репозиторий
   check_mailer:
     check_fail_notification:
       dear: "Уважаемый, %{nickname}!"
       unsuccessful_check: "К сожалению, проверка репозитория %{repository} не увенчалась успехом."
+  hexlet_copyright: '© Хекслет'
+  web:
+  repositories:
+    form:
+      create_repository: Создать репозиторий

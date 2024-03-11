@@ -8,7 +8,7 @@ table.table.table-striped.table-hover.mb-5
       th{ scope = 'col' } = t('.language')
       th{ scope = 'col' } = t('.state')
   tbody
-    - @repositories.each_with_index do |repository, i|
+    - @repositories.each_with_index do |repository, _i|
       tr
         td = link_to repository.name, repository_path(repository)
         td = repository.language

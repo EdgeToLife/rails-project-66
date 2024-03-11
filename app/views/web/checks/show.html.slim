@@ -5,7 +5,7 @@ table.table
     tbody
       tr
         td = t('.create_at')
-        td = @check.created_at.strftime("%d %B %Y, %H:%M")
+        td = @check.created_at.strftime('%d %B %Y, %H:%M')
       tr
         td = t('.state')
         td = @check.state
@@ -28,9 +28,9 @@ table.table
   tbody
     - @check.data.each do |check|
       tr
-        td = link_to File.basename(check["filePath"])
-      - check["messages"].each do |message|
+        td = link_to File.basename(check['filePath'])
+      - check['messages'].each do |message|
         tr
-          td = message["message"]
-          td = message["ruleId"]
-          td = "#{message["line"]}:#{message["column"]}"
+          td = message['message']
+          td = message['ruleId']
+          td = "#{message['line']}:#{message['column']}"
