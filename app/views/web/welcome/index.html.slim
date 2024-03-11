@@ -1,2 +1,10 @@
-h1 Welcome#index
-p Find me in app/views/welcome/index.html.slim
+.mb-4
+  .display-4.fw-bold.mb-0
+    = t('.welcome')
+  p
+    = t('.courses')
+  h2.fw-bold
+    = t('.course_title')
+  p
+    = t('.course_description')
+  = link_to t('.know_more'), 'https://ru.hexlet.io/programs/rails/projects/66', class: 'btn btn-primary mb-4'

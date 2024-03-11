@@ -1,4 +1,5 @@
 mb-4
+  = link_to t('.back_to_repo'), repository_path(@check.repository), method: :get, class: 'btn btn-primary mb-4'
   h1
     = "#{t('.check')} ##{@check.id}"
 table.table
@@ -17,7 +18,7 @@ table.table
         td = @total_error_count
       tr
         td = t('.commit_id')
-        td = @check.commit_id
+        td = link_to @check.commit_id.to_s, "https://github.com/#{@check.repository.full_name}/commit/#{@check.commit_id}", target: '_blank', rel: 'noopener'
 
 table.table
   thead

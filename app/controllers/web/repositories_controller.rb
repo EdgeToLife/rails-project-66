@@ -10,7 +10,7 @@ module Web
     end
 
     def show
-      @repository = Repository.find(params[:id])
+      @repository = current_user.repositories.find(params[:id])
     end
 
     def new
@@ -23,7 +23,7 @@ module Web
     end
 
     def check
-      repository = Repository.find(params[:id])
+      repository = current_user.repositories.find(params[:id])
       check = repository.checks.build
       check.to_in_progress!
       RepositoryAnalyzerJob.perform_later(check, current_user.id)
@@ -41,9 +41,8 @@ module Web
         @repository.name = '-'
         @repository.language = nil
 
-        CreateRepositoryWebhookJob.perform_later(repo_full_name, current_user.id)
-
         if @repository.save
+          CreateRepositoryWebhookJob.perform_later(repo_full_name, current_user.id)
           redirect_to repositories_url, notice: t('.create_success')
         else
           render :new, status: :unprocessable_entity

@@ -4,7 +4,7 @@
 
 # Introduction
 
-placeholder
+An application that helps you automatically monitor the quality of repositories on Github. It tracks changes and runs them through built-in analysers (linters). It then generates reports and sends them to the user.
 
 # Demo project
 
