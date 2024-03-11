@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepositoryAnalyzerJob < ApplicationJob
   queue_as :default
 
@@ -9,82 +11,6 @@ class RepositoryAnalyzerJob < ApplicationJob
     download_and_analyze_repository(check, octo_client)
     notify_user(check, user)
 
-    # initialize octokit client
-    # client = Octokit::Client.new access_token: user.token, auto_paginate: true
-
-    # get repo info
-    # repo_full_name = check.repository[:full_name]
-    # repo_info = client.repository(repo_full_name)
-
-    # update base repo info
-    # check.repository.name = repo_info.name
-    # check.repository.language = repo_info.language.downcase
-    # check.repository.git_url = repo_info.git_url
-    # check.repository.ssh_url = repo_info.ssh_url
-    # check.repository.save!
-
-    # get and update repo last commit id
-    # last_commit_sha = client.commits(repo_full_name).first.sha
-    # last_commit_id = last_commit_sha[0, 7]
-    # check.commit_id = last_commit_id
-
-    # prepare tmp folder to download repository
-    # timestamp = Time.zone.now.strftime('%Y%m%d%H%M')
-    # download_path = Rails.root.join('tmp/downloads/', "#{repo_full_name}_#{timestamp}")
-    # FileUtils.mkdir_p(download_path)
-
-    # get repo file list
-    # client.contents(repo_full_name)
-
-    # download repository to local temporary folder
-    # download_contents(client, repo_full_name, '', download_path)
-
-    # start linter
-    # if check.repository.language == 'javascript'
-    #   eslintrc_path = Rails.root.join('.eslintrc.yml')
-    #   cmd = "npx eslint #{download_path} --no-eslintrc --config #{eslintrc_path} -f json"
-    #   stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
-    #     [inner_stdout.read, wait_thr.value]
-    #   end
-    # elsif check.repository.language == 'ruby'
-    #   cmd = "rubocop #{download_path} --format json"
-    #   stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
-    #     [inner_stdout.read, wait_thr.value]
-    #   end
-    # end
-
-    # set the check status
-    # check.check_successful = exit_status.success?
-
-    # remove tmp folder with downloaded repository
-    # FileUtils.rm_rf(download_path)
-
-    # parse linter output
-    # data = JSON.parse(stdout)
-
-    # format linter output
-    # formatter_class_name = "#{check.repository.language.capitalize}Formatter"
-    # formatter_class = formatter_class_name.safe_constantize
-    # formatted_data, total_error_count = formatter_class.format_data(data)
-
-    # update check data
-    # check.data = formatted_data
-    # check.error_count = total_error_count
-
-    # if check.save
-    #   check.complete!
-    #   if check.error_count.positive?
-    #     CheckMailer.with(user: user, repository: repo_full_name).check_fail_notification.deliver_now
-    #     check.repository.state = false
-    #   else
-    #     check.repository.state = true
-    #   end
-    # else
-    #   check.fail!
-    #   check.repository.state = false
-    #   CheckMailer.with(user: user, repository: repo_full_name).check_fail_notification.deliver_now
-    # end
-    # check.repository.save!
   rescue StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
     check.fail!
@@ -100,12 +26,14 @@ class RepositoryAnalyzerJob < ApplicationJob
         [inner_stdout.read, wait_thr.value]
       end
     elsif check.repository.language == 'ruby'
-      rubocop_conf_path = Rails.root.join('.rubocop.yml')
+      rubocop_conf_path = Rails.root.join('.rubocop_ext.yml')
       cmd = "rubocop #{download_path} -c #{rubocop_conf_path} --format json"
+      puts "*******CMD*******\n#{cmd}"
       stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
         [inner_stdout.read, wait_thr.value]
       end
     end
+    puts "*******STDOUT*********\n#{stdout}"
     data = JSON.parse(stdout)
     check.update!(check_successful: exit_status.success?)
     parse_and_update_check_data(check, data)
@@ -121,7 +49,6 @@ class RepositoryAnalyzerJob < ApplicationJob
   end
 
   def download_repository(octo_client, repository, path, download_path)
-
     repository_contents = octo_client.contents(repository, path: path)
 
     repository_contents.each do |file|
