@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepositoryAnalyzerJobStub < ApplicationJob
   def self.perform(check, _user_id)
     check = Repository::Check.new(

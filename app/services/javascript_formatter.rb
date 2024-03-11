@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JavascriptFormatter
   def self.format_data(data)
     formatted_data = data.map do |item|

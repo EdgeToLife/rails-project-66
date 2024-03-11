@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RubyFormatter
   def self.format_data(data)
     formatted_data = data['files'].map do |file|

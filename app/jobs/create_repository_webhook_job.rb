@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRepositoryWebhookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
@@ -14,6 +16,6 @@ class CreateRepositoryWebhookJob < ApplicationJob
     }
     client.create_hook(repo_full_name, 'web', webhook_options)
   rescue StandardError => e
-    puts "An error occurred: #{e.message}"
+    Rails.logger.debug { "An error occurred: #{e.message}" }
   end
 end

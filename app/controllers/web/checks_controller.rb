@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Web
   class ChecksController < ApplicationController
     before_action :user_authorize

@@ -1,15 +1,19 @@
-class Api::ChecksController < ApplicationController
-  skip_before_action :verify_authenticity_token
+# frozen_string_literal: true
 
-  def checks
-    payload = JSON.parse(request.body.read)
-    repo_full_name = payload['repository']['full_name']
-    repository = Repository.find_by(full_name: repo_full_name)
-    check = repository.checks.build
-    check.to_in_progress!
+module Api
+  class ChecksController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
-    RepositoryAnalyzerJob.perform_later(check, repository.user.id)
+    def checks
+      payload = JSON.parse(request.body.read)
+      repo_full_name = payload['repository']['full_name']
+      repository = Repository.find_by(full_name: repo_full_name)
+      check = repository.checks.build
+      check.to_in_progress!
 
-    head :ok
+      RepositoryAnalyzerJob.perform_later(check, repository.user.id)
+
+      head :ok
+    end
   end
 end
