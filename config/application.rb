@@ -27,6 +27,10 @@ module RailsProject66
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ru
 
-    routes.default_url_options = { host: ENV['BASE_URL'] }
+    if Rails.env.development?
+      config.after_initialize do
+        routes.default_url_options = { host: ENV['BASE_URL'] }
+      end
+    end
   end
 end

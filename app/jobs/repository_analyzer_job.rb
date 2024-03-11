@@ -61,14 +61,20 @@ class RepositoryAnalyzerJob < ApplicationJob
       check.data = formatted_data
       check.error_count = total_error_count
 
-      puts "Send mail. Repo: #{repo_full_name}, User: #{user}"
-      CheckMailer.with(user: user, repository: repo_full_name).check_fail_notification.deliver_now if check.error_count > 0
-
       if check.save
         check.complete!
+        if check.error_count > 0
+          CheckMailer.with(user: user, repository: repo_full_name).check_fail_notification.deliver_now
+          check.repository.state = false
+        else
+          check.repository.state = true
+        end
       else
         check.fail!
+        check.repository.state = false
+        CheckMailer.with(user: user, repository: repo_full_name).check_fail_notification.deliver_now
       end
+      check.repository.save!
 
     rescue => e
       puts "An error occurred: #{e.message}"

@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  id: 1
+  repository_id: 1
+  commit_id: "abc123"
+  data: {}
+  state: "completed"
+  check_successful: true
+  error_count: 0
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+two:
+  id: 2
+  repository_id: 2
+  commit_id: "abc123"
+  data: {}
+  state: "completed"
+  error_count: 1
+  check_successful: false
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

@@ -1,2 +1,2 @@
-h1 Dear, #{@user.nickname}!
-p Unfortunately, checking the repository #{@repo_full_name} was not successful.
+h1= t('.dear', nickname: @user.nickname)
+p= t('.unsuccessful_check', repository: @repo_full_name)

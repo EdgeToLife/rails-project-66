@@ -2,7 +2,7 @@ class CreateRepositoryWebhookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(repo_full_name, user_id, csrf_token)
+  def perform(repo_full_name, user_id)
     begin
       user = User.find(user_id)
       client = Octokit::Client.new access_token: user.token, auto_paginate: true
@@ -10,8 +10,7 @@ class CreateRepositoryWebhookJob < ApplicationJob
       webhook_options = {
         url: webhook_url,
         content_type: 'json',
-        events: ['commit'],
-        csrf_token: csrf_token
+        events: ['commit']
       }
       client.create_hook(repo_full_name, 'web', webhook_options)
     rescue => e

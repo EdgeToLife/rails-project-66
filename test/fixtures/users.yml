@@ -3,4 +3,9 @@
 one:
   email: user1@example.com
   nickname: User1
-  token: SecretToken
+  token: SecretToken1
+
+two:
+  email: user2@example.com
+  nickname: User2
+  token: SecretToken2
