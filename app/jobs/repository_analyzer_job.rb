@@ -4,7 +4,6 @@ class RepositoryAnalyzerJob < ApplicationJob
   queue_as :default
 
   def perform(check, user_id)
-    check.to_in_progress!
     user = User.find(user_id)
     octo_client = Octokit::Client.new(access_token: user.token, auto_paginate: true)
 
