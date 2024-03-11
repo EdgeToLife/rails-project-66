@@ -8,7 +8,7 @@ An application that helps you automatically monitor the quality of repositories 
 
 # Demo project
 
-The demonstration project is available at the link: https://ziv-rails-project-66.onrender.com
+The demonstration project is available at the link: https://rails-github-quality.martyr.dp.ua/
 
 # Requirements
 
