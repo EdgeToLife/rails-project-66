@@ -4,9 +4,9 @@ module Web
 
     def show
       @check = Repository::Check.find(params[:id])
-      unless @check.completed?
-        redirect_to repository_path(@check.repository), notice: t('.check_not_completed')
-      end
+      return if @check.completed?
+
+      redirect_to repository_path(@check.repository), notice: t('.check_not_completed')
     end
 
     private

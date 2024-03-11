@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class RepositoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -20,7 +20,7 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
   test 'should get new repository page' do
     sign_in @user
     repository_params = { repository: { link: 'https://github.com/EdgeToLife/rails-project-65' } }
-    stub_request(:get, "https://api.github.com/user/repos?per_page=100")
+    stub_request(:get, 'https://api.github.com/user/repos?per_page=100')
       .to_return(status: 200, body: @fixture_data, headers: { 'Content-Type': 'application/json' })
     post repositories_url, params: repository_params
     get new_repository_url

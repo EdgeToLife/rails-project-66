@@ -10,6 +10,8 @@ AllCops:
     - "db/migrate/**"
     - "vendor/**/*"
     - "node_modules/**/*"
+    - "tmp/**/*"
+    - "config/**/*"
 
 Style/StringLiterals:
   Enabled: true

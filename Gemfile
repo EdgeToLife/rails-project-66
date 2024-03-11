@@ -1,31 +1,31 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-ruby "3.2.2"
+ruby '3.2.2'
 
-gem "rails", "~> 7.1.3"
+gem 'rails', '~> 7.1.3'
 
-gem "sprockets-rails"
+gem 'sprockets-rails'
 
-gem "sqlite3", "~> 1.4"
+gem 'sqlite3', '~> 1.4'
 
-gem "puma", ">= 5.0"
+gem 'puma', '>= 5.0'
 
-gem "jsbundling-rails"
+gem 'jsbundling-rails'
 
-gem "turbo-rails"
+gem 'turbo-rails'
 
-gem "stimulus-rails"
+gem 'stimulus-rails'
 
-gem "cssbundling-rails"
+gem 'cssbundling-rails'
 
-gem "jbuilder"
+gem 'jbuilder'
 
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem 'tzinfo-data', platforms: %i[windows jruby]
 
-gem "bootsnap", require: false
+gem 'bootsnap', require: false
 
-gem "sentry-ruby"
-gem "sentry-rails"
+gem 'sentry-rails'
+gem 'sentry-ruby'
 
 gem 'slim-rails'
 
@@ -47,24 +47,24 @@ gem 'dry-container'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  gem 'debug', platforms: %i[mri windows]
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
   gem 'byebug'
   gem 'dotenv'
   gem 'faker'
   gem 'rubocop-rails'
   gem 'slim_lint'
+  gem 'web-console'
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem 'capybara'
   gem 'minitest-power_assert'
+  gem 'selenium-webdriver'
   gem 'webmock'
 end
 

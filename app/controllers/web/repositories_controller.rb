@@ -7,6 +7,10 @@ module Web
       @repositories = current_user.repositories
     end
 
+    def show
+      @repository = Repository.find(params[:id])
+    end
+
     def new
       @new_repository = current_user.repositories.build
       client = Octokit::Client.new access_token: current_user.token, auto_paginate: true
@@ -15,7 +19,7 @@ module Web
 
     def check
       repository = Repository.find(params[:id])
-      check = repository.checks.build()
+      check = repository.checks.build
       check.to_in_progress!
       RepositoryAnalyzerJob.perform_later(check, current_user.id)
       redirect_to repository_path(params[:id]), notice: t('.check_started')
@@ -40,10 +44,6 @@ module Web
           render :new, status: :unprocessable_entity
         end
       end
-    end
-
-    def show
-      @repository = Repository.find(params[:id])
     end
 
     def completed

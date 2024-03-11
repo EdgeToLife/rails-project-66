@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
 require 'webmock/minitest'
 
 OmniAuth.config.test_mode = true
-
 
 module ActiveSupport
   class TestCase
@@ -31,7 +30,7 @@ module ActionDispatch
         uid: '12345',
         info: {
           email: user.email,
-          name: user.nickname,
+          name: user.nickname
         },
         credentials: {
           token: user.token
