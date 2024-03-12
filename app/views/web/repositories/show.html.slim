@@ -21,7 +21,7 @@ table.table.table-striped
         th = t('.id')
         th = t('.aasm_state')
         th = t('.commit_id')
-        th = t('.check_successful')
+        th = t('.passed')
         th = t('.create_at')
     tbody
       - @repository.checks.each do |check|
@@ -29,5 +29,5 @@ table.table.table-striped
           td = link_to check.id, repository_check_path(@repository, check), class: 'me-2'
           td = t(check.aasm_state.to_s)
           td = link_to check.commit_id.to_s, "https://github.com/#{@repository.full_name}/commit/#{check.commit_id}", target: '_blank', rel: 'noopener'
-          td = check.check_successful
+          td = check.passed
           td = time_ago_in_words(check.created_at)

@@ -32,7 +32,7 @@ class RepositoryAnalyzerJob < ApplicationJob
       end
     end
     data = JSON.parse(stdout)
-    check.update!(check_successful: exit_status.success?)
+    check.update!(passed: exit_status.success?)
     parse_and_update_check_data(check, data)
   end
 

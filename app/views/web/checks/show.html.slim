@@ -11,8 +11,8 @@ table.table
         td = t('.aasm_state')
         td = t(@check.aasm_state.to_s)
       tr
-        td = t('.check_successful')
-        td = @check.check_successful
+        td = t('.passed')
+        td = @check.passed
       tr
         td = t('.errors_count')
         td = @total_error_count

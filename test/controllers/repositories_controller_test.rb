@@ -60,7 +60,7 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     ApplicationJob.resolve(:repository_analyzer_job).perform(@check, @creator.id)
     expected_value = true
-    actual_value = @check.check_successful
+    actual_value = @check.passed
 
     assert_equal expected_value, actual_value
   end
