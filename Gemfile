@@ -57,7 +57,6 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'byebug'
   gem 'dotenv'
-  gem 'faker'
   gem 'rubocop-rails'
   gem 'slim_lint'
   gem 'web-console'
