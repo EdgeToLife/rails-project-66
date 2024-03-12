@@ -8,8 +8,8 @@ table.table
         td = t('.create_at')
         td = l(@check.created_at, format: :long)
       tr
-        td = t('.state')
-        td = t(@check.state.to_s)
+        td = t('.aasm_state')
+        td = t(@check.aasm_state.to_s)
       tr
         td = t('.check_successful')
         td = @check.check_successful

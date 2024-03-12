@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_12_073807) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_12_075309) do
   create_table "repositories", force: :cascade do |t|
     t.string "name"
     t.string "full_name"
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_12_073807) do
     t.integer "repository_id", null: false
     t.string "commit_id"
     t.json "data"
-    t.string "state"
+    t.string "aasm_state"
     t.boolean "check_successful", default: false
     t.integer "error_count"
     t.index ["repository_id"], name: "index_repository_checks_on_repository_id"
