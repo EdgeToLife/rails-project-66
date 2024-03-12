@@ -6,7 +6,7 @@ class RepositoryAnalyzerJobStub < ApplicationJob
       repository_id: check.repository_id,
       commit_id: '2b38583',
       data: [],
-      aasm_state: 'completed',
+      aasm_state: 'finished',
       passed: true,
       error_count: 0
     )

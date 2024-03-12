@@ -5,14 +5,14 @@ class Repository::Check < ApplicationRecord
 
   aasm column: 'aasm_state' do
     state :not_started, initial: true
-    state :in_progress, :completed, :failed
+    state :in_progress, :finished, :failed
 
     event :to_in_progress do
       transitions from: %i[not_started failed], to: :in_progress
     end
 
-    event :complete do
-      transitions from: :in_progress, to: :completed
+    event :finish do
+      transitions from: :in_progress, to: :finished
     end
 
     event :fail do

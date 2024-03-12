@@ -51,9 +51,9 @@ module Web
       end
     end
 
-    def completed
+    def finished
       @check = Check.find(params[:id])
-      @check.completed! if @check.may_complete?
+      @check.finished! if @check.may_finish?
     end
 
     private
