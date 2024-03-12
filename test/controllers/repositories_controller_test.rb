@@ -51,7 +51,7 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should check repository' do
     sign_in @user
-    get check_repository_path(@repository)
+    post repository_checks_path(@repository)
     assert_response :redirect
     assert_redirected_to repository_path(@repository)
   end

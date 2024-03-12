@@ -69,7 +69,7 @@ class RepositoryAnalyzerJob < ApplicationJob
     else
       check.repository.update!(state: true)
     end
-    check.complete!
+    check.finish!
   end
 
   def parse_and_update_check_data(check, data)

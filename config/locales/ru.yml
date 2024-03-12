@@ -22,6 +22,8 @@ ru:
     auth:
       success: 'Успешно'
     checks:
+      create:
+        check_started: 'Проверка начата'
       show:
         back_to_repo: 'Перейти к репозиторию'
         check: 'Проверка'
@@ -35,10 +37,9 @@ ru:
         rule_id: 'Идентификатор правила'
         state: 'Статус'
     repositories:
-      check:
-        check_started: 'Проверка начата'
       create:
         create_success: 'Репозиторий создан'
+        repository_already_added: 'Этот репозиторий уже добавлен'
       form:
         create_repository: 'Создать репозиторий'
       index:

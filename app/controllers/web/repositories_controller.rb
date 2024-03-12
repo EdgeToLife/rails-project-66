@@ -22,14 +22,14 @@ module Web
       end
     end
 
-    def check
-      repository = current_user.repositories.find(params[:id])
-      check = repository.checks.build
-      check.to_in_progress!
-      RepositoryAnalyzerJob.perform_later(check, current_user.id)
-      flash.now[:notice] = t('.check_started')
-      redirect_to repository_path(params[:id]), notice: t('.check_started')
-    end
+    # def check
+    #   repository = current_user.repositories.find(params[:id])
+    #   check = repository.checks.build
+    #   check.to_in_progress!
+    #   RepositoryAnalyzerJob.perform_later(check, current_user.id)
+    #   flash.now[:notice] = t('.check_started')
+    #   redirect_to repository_path(params[:id]), notice: t('.check_started')
+    # end
 
     def create
       repo_full_name = params[:repository][:full_name]
@@ -51,15 +51,10 @@ module Web
       end
     end
 
-    def finished
-      @check = Check.find(params[:id])
-      @check.finished! if @check.may_finish?
-    end
-
     private
 
     def repository_params
-      params.require(:repository).permit(:full_name, :name, :language, :check_id)
+      params.require(:repository).permit(:full_name)
     end
   end
 end

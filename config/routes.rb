@@ -13,10 +13,7 @@ Rails.application.routes.draw do
     delete '/auth', to: 'auth#destroy', as: :destroy_user_session
 
     resources :repositories do
-      resources :checks, only: %i[show]
-      member do
-        get 'check'
-      end
+      resources :checks, only: %i[create show]
     end
   end
 end
