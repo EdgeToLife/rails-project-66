@@ -6,10 +6,12 @@ setup: install
 
 install:
 	npm install
+	npm init @eslint/config
 	yarn build
 	yarn build:css
 	bin/setup
 	bin/rails db:migrate
+	rake assets:precompile
 
 db-prepare:
 	bin/rails db:drop
