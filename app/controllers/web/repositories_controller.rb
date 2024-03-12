@@ -27,6 +27,7 @@ module Web
       check = repository.checks.build
       check.to_in_progress!
       RepositoryAnalyzerJob.perform_later(check, current_user.id)
+      flash.now[:notice] = t('.check_started')
       redirect_to repository_path(params[:id]), notice: t('.check_started')
     end
 
