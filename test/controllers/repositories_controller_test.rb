@@ -32,7 +32,7 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
   test 'should create repository' do
     sign_in @user
     attrs = {
-      full_name: @parsed_data[0]['full_name']
+      github_id: @parsed_data[0]['id']
     }
     assert_difference('Repository.count') do
       post repositories_url, params: { repository: attrs }

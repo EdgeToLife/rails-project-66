@@ -5,19 +5,22 @@ class RepositoryAnalyzerJob < ApplicationJob
 
   def perform(check, user_id)
     user = User.find(user_id)
-    octo_client = Octokit::Client.new(access_token: user.token, auto_paginate: true)
-
-    update_repository_info(check, octo_client)
-    download_and_analyze_repository(check, octo_client)
-    notify_user(check, user)
+    client = Octokit::Client.new(access_token: user.token, auto_paginate: true)
+    download_path = prepare_download_path(check.repository.full_name)
+    FileUtils.mkdir_p(download_path)
+    download_repository(client, check.repository.full_name, '', download_path)
+    analyze_repository(client, check, download_path)
   rescue StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
     check.fail!
+  ensure
+    FileUtils.rm_rf(download_path)
+    notify_user(check, user)
   end
 
   private
 
-  def analyze_repository(check, download_path)
+  def analyze_repository(client, check, download_path)
     if check.repository.language == 'javascript'
       eslintrc_path = Rails.root.join('.eslintrc.yml')
       cmd = "npx eslint #{download_path} --no-eslintrc --config #{eslintrc_path} -f json"
@@ -32,32 +35,24 @@ class RepositoryAnalyzerJob < ApplicationJob
       end
     end
     data = JSON.parse(stdout)
-    check.update!(passed: exit_status.success?)
-    parse_and_update_check_data(check, data)
+    passed = exit_status.success?
+    commit_id = client.commits(check.repository[:full_name]).first.sha[0, 7]
+    parse_and_update_check_data(check, data, commit_id, passed)
   end
 
-  def download_and_analyze_repository(check, octo_client)
-    download_path = prepare_download_path(check.repository[:full_name])
-    FileUtils.mkdir_p(download_path)
-    download_repository(octo_client, check.repository[:full_name], '', download_path)
-    analyze_repository(check, download_path)
-  ensure
-    FileUtils.rm_rf(download_path)
-  end
-
-  def download_repository(octo_client, repository, path, download_path)
-    repository_contents = octo_client.contents(repository, path: path)
+  def download_repository(client, repository, path, download_path)
+    repository_contents = client.contents(repository, path: path)
 
     repository_contents.each do |file|
       file_path = File.join(download_path, file.name)
 
       if file.type == 'file'
-        repository_content = octo_client.contents(repository, path: file.path)
+        repository_content = client.contents(repository, path: file.path)
         File.write(file_path, Base64.decode64(repository_content.content).force_encoding(Encoding::UTF_8))
         Rails.logger.debug file_path
       elsif file.type == 'dir'
         FileUtils.mkdir_p(file_path)
-        download_repository(octo_client, repository, file.path, file_path)
+        download_repository(client, repository, file.path, file_path)
       end
     end
   end
@@ -72,29 +67,15 @@ class RepositoryAnalyzerJob < ApplicationJob
     check.finish!
   end
 
-  def parse_and_update_check_data(check, data)
+  def parse_and_update_check_data(check, data, commit_id, passed)
     formatter_class_name = "#{check.repository.language.capitalize}Formatter"
     formatter_class = formatter_class_name.safe_constantize
     formatted_data, total_error_count = formatter_class.format_data(data)
-    check.update!(data: formatted_data, error_count: total_error_count)
+    check.update!(data: formatted_data, error_count: total_error_count, commit_id: commit_id, passed: passed)
   end
 
   def prepare_download_path(repo_full_name)
     timestamp = Time.zone.now.strftime('%Y%m%d%H%M')
     Rails.root.join('tmp/downloads/', "#{repo_full_name}_#{timestamp}")
-  end
-
-  def update_repository_info(check, octo_client)
-    repo_full_name = check.repository[:full_name]
-    repo_info = octo_client.repository(repo_full_name)
-
-    check.repository.update!(
-      name: repo_info.name,
-      language: repo_info.language.downcase,
-      git_url: repo_info.git_url,
-      ssh_url: repo_info.ssh_url
-    )
-
-    check.update!(commit_id: octo_client.commits(repo_full_name).first.sha[0, 7])
   end
 end

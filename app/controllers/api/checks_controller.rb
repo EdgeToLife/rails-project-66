@@ -6,8 +6,8 @@ module Api
 
     def checks
       payload = JSON.parse(request.body.read)
-      repo_full_name = payload['repository']['full_name']
-      repository = Repository.find_by(full_name: repo_full_name)
+      repo_id = payload['repository']['id']
+      repository = Repository.find_by(github_id: repo_id)
       check = repository.checks.build
       check.to_in_progress!
       repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]

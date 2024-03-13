@@ -3,7 +3,7 @@ ru:
     check_fail_notification:
       dear: "Уважаемый, %{nickname}!"
       unsuccessful_check: "К сожалению, проверка репозитория %{repository} не увенчалась успехом."
-  completed: 'Завершена'
+  finished: 'Завершена'
   in_progress: 'В процессе'
   failed: 'Ошибка'
   hexlet_copyright: '© Хекслет'
@@ -28,15 +28,15 @@ ru:
         back_to_repo: 'Перейти к репозиторию'
         check: 'Проверка'
         check_not_completed: 'Проверка еще не завершена'
-        check_successful: 'Проверка пройдена'
+        passed: 'Проверка пройдена'
         commit_id: 'ID коммита'
         create_at: 'Дата создания'
         errors_count: 'Количество замечаний'
         line: 'Строка и символ'
         message: 'Сообщение'
-        no_check_available: 'Проверок еще не было'
+        no_check_available: 'Нечего тут показать, мой дорогой друг'
         rule_id: 'Идентификатор правила'
-        state: 'Статус'
+        aasm_state: 'Статус'
     repositories:
       create:
         create_success: 'Репозиторий создан'
@@ -51,14 +51,15 @@ ru:
       new:
         create_repository: 'Добавить репозиторий'
       show:
+        aasm_state: 'Статус'
         check_repo: 'Проверить'
-        passed: 'Проверка пройдена?'
         commit_id: 'ID коммита'
         create_at: 'Дата создания'
         created_at: 'Дата создания'
         full_name: 'Название'
         language: 'Язык'
-        aasm_state: 'Статус'
+        not_allowed: 'Вы не авторизованы'
+        passed: 'Проверка пройдена?'
         updated_at: 'Дата обновления'
     welcome:
       index:

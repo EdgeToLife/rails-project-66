@@ -24,8 +24,9 @@ module Web
     end
 
     def create
-      repo_full_name = params[:repository][:full_name]
-      existing_repository = current_user.repositories.find_by(full_name: repo_full_name)
+      # repo_full_name = params[:repository][:full_name]
+      github_id = params[:repository][:github_id]
+      existing_repository = current_user.repositories.find_by(github_id: github_id)
 
       if existing_repository
         redirect_to repositories_url, alert: t('.repository_already_added')
@@ -36,7 +37,7 @@ module Web
 
         if @repository.save
           create_repository_webhook_job = ApplicationContainer[:create_repository_webhook_job]
-          create_repository_webhook_job.perform_later(repo_full_name, current_user.id)
+          create_repository_webhook_job.perform_later(@repository, current_user.id)
           redirect_to repositories_url, notice: t('.create_success')
         else
           render :new, status: :unprocessable_entity
@@ -47,7 +48,7 @@ module Web
     private
 
     def repository_params
-      params.require(:repository).permit(:full_name)
+      params.require(:repository).permit(:github_id)
     end
   end
 end
