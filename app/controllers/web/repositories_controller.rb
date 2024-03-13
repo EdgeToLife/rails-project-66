@@ -24,7 +24,6 @@ module Web
     end
 
     def create
-      # repo_full_name = params[:repository][:full_name]
       github_id = params[:repository][:github_id]
       existing_repository = current_user.repositories.find_by(github_id: github_id)
 
