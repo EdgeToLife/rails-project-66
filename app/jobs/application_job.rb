@@ -7,15 +7,4 @@ class ApplicationJob < ActiveJob::Base
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
   # frozen_string_literal: true
-  extend Dry::Container::Mixin
-
-  if Rails.env.test?
-    Rails.logger.debug 'TROLOLO TEST'
-    register :repository_analyzer_job, -> { RepositoryAnalyzerJobStub }
-    register :create_repository_webhook_job, -> { CreateRepositoryWebhookJobStub }
-  else
-    Rails.logger.debug 'TROLOLO DEV'
-    register :repository_analyzer_job, -> { RepositoryAnalyzerJob }
-    register :create_repository_webhook_job, -> { CreateRepositoryWebhookJob }
-  end
 end

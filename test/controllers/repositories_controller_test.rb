@@ -58,7 +58,7 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should analyze repository' do
     sign_in @user
-    ApplicationJob.resolve(:repository_analyzer_job).perform(@check, @creator.id)
+    ApplicationContainer.resolve(:repository_analyzer_job).perform(@check, @creator.id)
     expected_value = true
     actual_value = @check.passed
 

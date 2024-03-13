@@ -13,7 +13,7 @@ module Web
       repository = current_user.repositories.find(params[:repository_id])
       check = repository.checks.build
       check.to_in_progress!
-      repository_analyzer_job = ApplicationJob[:repository_analyzer_job]
+      repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
       repository_analyzer_job.perform_later(check, current_user.id)
       # RepositoryAnalyzerJob.perform_later(check, current_user.id)
       redirect_to repository_path(params[:repository_id]), notice: t('.check_started')

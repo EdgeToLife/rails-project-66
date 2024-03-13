@@ -36,7 +36,7 @@ module Web
         @repository.language = nil
 
         if @repository.save
-          create_repository_webhook_job = ApplicationJob[:create_repository_webhook_job]
+          create_repository_webhook_job = ApplicationContainer[:create_repository_webhook_job]
           create_repository_webhook_job.perform_later(repo_full_name, current_user.id)
           # CreateRepositoryWebhookJob.perform_later(repo_full_name, current_user.id)
           redirect_to repositories_url, notice: t('.create_success')
