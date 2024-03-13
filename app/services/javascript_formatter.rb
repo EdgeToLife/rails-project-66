@@ -2,7 +2,7 @@
 
 class JavascriptFormatter
   def self.format_data(data)
-    formatted_data = data.map do |item|
+    formatted_data = data.filter_map do |item|
       messages = item['messages'].map do |message|
         {
           'ruleId' => message['ruleId'],

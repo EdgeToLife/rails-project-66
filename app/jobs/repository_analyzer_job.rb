@@ -6,9 +6,10 @@ class RepositoryAnalyzerJob < ApplicationJob
   def perform(check, user_id)
     user = User.find(user_id)
     client = Octokit::Client.new(access_token: user.token, auto_paginate: true)
-    download_path = prepare_download_path(check.repository.full_name)
+    repo_full_name = check.repository.full_name
+    download_path = prepare_download_path(repo_full_name)
     FileUtils.mkdir_p(download_path)
-    download_repository(client, check.repository.full_name, '', download_path)
+    download_repository(client, repo_full_name, '', download_path)
     analyze_repository(client, check, download_path)
   rescue StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
@@ -40,26 +41,26 @@ class RepositoryAnalyzerJob < ApplicationJob
     parse_and_update_check_data(check, data, commit_id, passed)
   end
 
-  def download_repository(client, repository, path, download_path)
-    repository_contents = client.contents(repository, path: path)
+  def download_repository(client, repo_full_name, path, download_path)
+    repository_contents = client.contents(repo_full_name, path:)
 
     repository_contents.each do |file|
       file_path = File.join(download_path, file.name)
 
       if file.type == 'file'
-        repository_content = client.contents(repository, path: file.path)
+        repository_content = client.contents(repo_full_name, path: file.path)
         File.write(file_path, Base64.decode64(repository_content.content).force_encoding(Encoding::UTF_8))
         Rails.logger.debug file_path
       elsif file.type == 'dir'
         FileUtils.mkdir_p(file_path)
-        download_repository(client, repository, file.path, file_path)
+        download_repository(client, repo_full_name, file.path, file_path)
       end
     end
   end
 
   def notify_user(check, user)
     if check.error_count.positive?
-      CheckMailer.with(user: user, repository: check.repository[:full_name]).check_fail_notification.deliver_now
+      CheckMailer.with(user:, repository: check.repository[:full_name]).check_fail_notification.deliver_now
       check.repository.update!(state: false)
     else
       check.repository.update!(state: true)
@@ -71,7 +72,7 @@ class RepositoryAnalyzerJob < ApplicationJob
     formatter_class_name = "#{check.repository.language.capitalize}Formatter"
     formatter_class = formatter_class_name.safe_constantize
     formatted_data, total_error_count = formatter_class.format_data(data)
-    check.update!(data: formatted_data, error_count: total_error_count, commit_id: commit_id, passed: passed)
+    check.update!(data: formatted_data, error_count: total_error_count, commit_id:, passed:)
   end
 
   def prepare_download_path(repo_full_name)

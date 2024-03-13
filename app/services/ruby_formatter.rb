@@ -2,7 +2,7 @@
 
 class RubyFormatter
   def self.format_data(data)
-    formatted_data = data['files'].map do |file|
+    formatted_data = data['files'].filter_map do |file|
       offenses = file['offenses']
       next unless offenses.any?
 

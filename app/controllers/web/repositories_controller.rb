@@ -19,13 +19,13 @@ module Web
       client = octokit.new(access_token: current_user.token, auto_paginate: true)
       @repository_list = client.repos.select do |repo|
         language = repo[:language]
-        language.present? && Repository.language.values.include?(language.downcase)
+        language.present? && Repository.language.value?(language.downcase)
       end
     end
 
     def create
       github_id = params[:repository][:github_id]
-      existing_repository = current_user.repositories.find_by(github_id: github_id)
+      existing_repository = current_user.repositories.find_by(github_id:)
 
       if existing_repository
         redirect_to repositories_url, alert: t('.repository_already_added')
