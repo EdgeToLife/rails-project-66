@@ -11,7 +11,7 @@ module Api
       check = repository.checks.build
       check.to_in_progress!
       repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
-      repository_analyzer_job.perform_later(check, current_user.id)
+      repository_analyzer_job.perform_later(check, repository.id)
 
       head :ok
     end
