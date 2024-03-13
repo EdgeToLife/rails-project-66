@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_12_085426) do
     t.string "ssh_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "state"
+    t.integer "state"
     t.integer "user_id", null: false
     t.integer "github_id"
     t.index ["user_id"], name: "index_repositories_on_user_id"

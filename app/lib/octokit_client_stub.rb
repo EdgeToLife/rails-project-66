@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+class OctokitClientStub
+  attr_reader :options
+
+  def initialize(options = {})
+    @options = options
+  end
+
+  def repos
+    json = Rails.root.join('test/fixtures/files/response.json').read
+    repos_data = JSON.parse(json)
+    repos_data
+  end
+end
