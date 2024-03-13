@@ -34,6 +34,7 @@ ru:
         errors_count: 'Количество замечаний'
         line: 'Строка и символ'
         message: 'Сообщение'
+        no_check_available: 'Проверок еще не было'
         rule_id: 'Идентификатор правила'
         state: 'Статус'
     repositories:

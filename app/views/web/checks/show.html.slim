@@ -19,19 +19,21 @@ table.table
       tr
         td = t('.commit_id')
         td = link_to @check.commit_id.to_s, "https://github.com/#{@check.repository.full_name}/commit/#{@check.commit_id}", target: '_blank', rel: 'noopener'
-
-table.table
-  thead
-    tr
-      th = t('.message')
-      th = t('.rule_id')
-      th = t('.line')
-  tbody
-    - @check.data.each do |check|
+- if @check.data.present?
+  table.table
+    thead
       tr
-        td = link_to File.basename(check['filePath'])
-      - check['messages'].each do |message|
+        th = t('.message')
+        th = t('.rule_id')
+        th = t('.line')
+    tbody
+      - @check.data.each do |check|
         tr
-          td = message['message']
-          td = message['ruleId']
-          td = "#{message['line']}:#{message['column']}"
+          td = link_to File.basename(check['filePath'])
+        - check['messages'].each do |message|
+          tr
+            td = message['message']
+            td = message['ruleId']
+            td = "#{message['line']}:#{message['column']}"
+- else
+ p = t('.no_check_available')
