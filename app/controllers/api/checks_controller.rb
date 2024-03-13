@@ -10,8 +10,8 @@ module Api
       repository = Repository.find_by(full_name: repo_full_name)
       check = repository.checks.build
       check.to_in_progress!
-
-      RepositoryAnalyzerJob.perform_later(check, repository.user.id)
+      repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
+      repository_analyzer_job.perform_later(check, current_user.id)
 
       head :ok
     end
