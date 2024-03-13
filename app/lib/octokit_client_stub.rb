@@ -9,7 +9,6 @@ class OctokitClientStub
 
   def repos
     json = Rails.root.join('test/fixtures/files/response.json').read
-    repos_data = JSON.parse(json)
-    repos_data
+    JSON.parse(json)
   end
 end
