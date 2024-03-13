@@ -51,13 +51,13 @@ ru:
         create_repository: 'Добавить репозиторий'
       show:
         check_repo: 'Проверить'
-        check_successful: 'Проверка пройдена?'
+        passed: 'Проверка пройдена?'
         commit_id: 'ID коммита'
         create_at: 'Дата создания'
         created_at: 'Дата создания'
         full_name: 'Название'
         language: 'Язык'
-        state: 'Статус'
+        aasm_state: 'Статус'
         updated_at: 'Дата обновления'
     welcome:
       index:

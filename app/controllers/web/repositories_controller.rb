@@ -17,7 +17,6 @@ module Web
       @new_repository = current_user.repositories.build
       octokit = ApplicationContainer[:octokit]
       client = octokit.new(access_token: current_user.token, auto_paginate: true)
-      # client = Octokit::Client.new access_token: current_user.token, auto_paginate: true
       @repository_list = client.repos.select do |repo|
         language = repo[:language]
         language.present? && Repository.language.values.include?(language.downcase)
@@ -38,7 +37,6 @@ module Web
         if @repository.save
           create_repository_webhook_job = ApplicationContainer[:create_repository_webhook_job]
           create_repository_webhook_job.perform_later(repo_full_name, current_user.id)
-          # CreateRepositoryWebhookJob.perform_later(repo_full_name, current_user.id)
           redirect_to repositories_url, notice: t('.create_success')
         else
           render :new, status: :unprocessable_entity

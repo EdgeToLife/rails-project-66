@@ -12,4 +12,4 @@ table.table.table-striped.table-hover.mb-5
       tr
         td = link_to repository.name, repository_path(repository)
         td = repository.language
-        td = repository.state
+        td = repository.state == 1 ? 'true' : 'false'
