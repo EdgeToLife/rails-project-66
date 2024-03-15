@@ -30,4 +30,4 @@ table.table.table-striped
           td = t(check.aasm_state.to_s)
           td = link_to check.commit_id.to_s, "https://github.com/#{@repository.full_name}/commit/#{check.commit_id}", target: '_blank', rel: 'noopener'
           td = check.passed
-          td = l(check.created_at, format: "%d %B, %H:%M")
+          td = l(check.created_at, format: '%d %B, %H:%M')
