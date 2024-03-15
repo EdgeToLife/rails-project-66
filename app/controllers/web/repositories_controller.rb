@@ -11,6 +11,7 @@ module Web
 
     def show
       @repository = current_user.repositories.find(params[:id])
+      @checks = @repository.checks.order(created_at: :desc)
     end
 
     def new
