@@ -15,6 +15,8 @@ class JavascriptFormatter
         }
       end
       error_count = messages.size
+      next if error_count.zero?
+
       {
         'filePath' => relative_path,
         'messages' => messages,
