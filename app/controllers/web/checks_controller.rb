@@ -6,7 +6,12 @@ module Web
 
     def show
       @check = Repository::Check.find(params[:id])
-      redirect_to repository_path(@check.repository), notice: t('.check_not_completed') unless @check.finished?
+      repository_owner = @check.repository.user
+      if current_user == repository_owner
+        redirect_to repository_path(@check.repository), notice: t('.check_not_completed') unless @check.finished?
+      else
+        redirect_to root_path, notice: t('.not_allowed')
+      end
     end
 
     def create

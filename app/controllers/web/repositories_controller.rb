@@ -25,6 +25,12 @@ module Web
 
     def create
       github_id = params[:repository][:github_id]
+
+      if github_id.blank?
+        redirect_to new_repository_path, alert: t('.repository_required')
+        return
+      end
+
       existing_repository = current_user.repositories.find_by(github_id:)
 
       if existing_repository

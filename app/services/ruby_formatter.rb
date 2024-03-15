@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class RubyFormatter
-  def self.format_data(data)
+  def self.format_data(data, base_path)
     formatted_data = data['files'].filter_map do |file|
+      base_pathname = Pathname.new(base_path)
       offenses = file['offenses']
       next unless offenses.any?
+
+      file_pathname = Pathname.new(file['path'])
+      relative_path = file_pathname.relative_path_from(base_pathname).to_s
 
       messages = offenses.map do |offense|
         {
@@ -16,7 +20,7 @@ class RubyFormatter
       end
 
       {
-        'filePath' => file['path'],
+        'filePath' => relative_path,
         'messages' => messages
       }
     end.compact

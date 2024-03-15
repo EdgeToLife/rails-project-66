@@ -38,7 +38,7 @@ class RepositoryAnalyzerJob < ApplicationJob
     data = JSON.parse(stdout)
     passed = exit_status.success?
     commit_id = client.commits(check.repository[:full_name]).first.sha[0, 7]
-    parse_and_update_check_data(check, data, commit_id, passed)
+    parse_and_update_check_data(check, data, commit_id, passed, download_path)
   end
 
   def download_repository(client, repo_full_name, path, download_path)
@@ -68,10 +68,10 @@ class RepositoryAnalyzerJob < ApplicationJob
     check.finish!
   end
 
-  def parse_and_update_check_data(check, data, commit_id, passed)
+  def parse_and_update_check_data(check, data, commit_id, passed, download_path)
     formatter_class_name = "#{check.repository.language.capitalize}Formatter"
     formatter_class = formatter_class_name.safe_constantize
-    formatted_data, total_error_count = formatter_class.format_data(data)
+    formatted_data, total_error_count = formatter_class.format_data(data, download_path)
     check.update!(data: formatted_data, error_count: total_error_count, commit_id:, passed:)
   end
 

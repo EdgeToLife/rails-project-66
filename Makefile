@@ -20,8 +20,6 @@ db-prepare:
 check: test lint
 
 test:
-	RAILS_ENV=test bin/rails db:migrate
-	RAILS_ENV=test rake db:fixtures:load FIXTURES_PATH=test/fixtures ORDER=users,repositories,repository_checks
 	RAILS_ENV=test bin/rails test
 
 lint:

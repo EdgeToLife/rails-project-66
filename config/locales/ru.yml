@@ -25,6 +25,7 @@ ru:
       create:
         check_started: 'Проверка начата'
       show:
+        aasm_state: 'Статус'
         back_to_repo: 'Перейти к репозиторию'
         check: 'Проверка'
         check_not_completed: 'Проверка еще не завершена'
@@ -35,21 +36,24 @@ ru:
         line: 'Строка и символ'
         message: 'Сообщение'
         no_check_available: 'Нечего тут показать, мой дорогой друг'
+        not_allowed: 'Вы не авторизованы'
         rule_id: 'Идентификатор правила'
-        aasm_state: 'Статус'
     repositories:
       create:
         create_success: 'Репозиторий создан'
         repository_already_added: 'Этот репозиторий уже добавлен'
+        repository_required: 'Github не может быть пустым'
       form:
         create_repository: 'Создать репозиторий'
       index:
         language: 'Язык'
         name: 'Название'
         new_repository: 'Добавить'
+        not_allowed: 'Вы не авторизованы'
         state: 'Статус последней проверки'
       new:
         create_repository: 'Добавить репозиторий'
+        not_allowed: 'Вы не авторизованы'
       show:
         aasm_state: 'Статус'
         check_repo: 'Проверить'

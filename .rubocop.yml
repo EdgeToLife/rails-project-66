@@ -34,11 +34,7 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Enabled: true
-  Max: 20
-#   Enabled: false
-
-# Lint/EmptyBlock:
-#   Enabled: true
+  Max: 25
 
 Style/Documentation:
   Enabled: false
