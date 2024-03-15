@@ -3,12 +3,11 @@
 class RubyFormatter
   def self.format_data(data, base_path)
     formatted_data = data['files'].filter_map do |file|
-      base_pathname = Pathname.new(base_path)
       offenses = file['offenses']
       next unless offenses.any?
 
-      file_pathname = Pathname.new(file['path'])
-      relative_path = file_pathname.relative_path_from(base_pathname).to_s
+      file_path = file['path']
+      relative_path = file_path.sub(base_path.to_s, '')
 
       messages = offenses.map do |offense|
         {
