@@ -2,7 +2,6 @@
 
 module Web
   class RepositoriesController < ApplicationController
-    include Rails.application.routes.url_helpers
     before_action :user_authorize
 
     def index
