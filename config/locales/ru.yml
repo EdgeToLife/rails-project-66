@@ -4,7 +4,7 @@ ru:
       dear: "Уважаемый, %{nickname}!"
       unsuccessful_check: "К сожалению, проверка репозитория %{repository} не увенчалась успехом."
   finished: 'Завершена'
-  in_progress: 'В процессе'
+  started: 'В процессе'
   failed: 'Ошибка'
   hexlet_copyright: '© Хекслет'
   layouts:

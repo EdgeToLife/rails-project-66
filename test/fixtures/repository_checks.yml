@@ -31,7 +31,7 @@ three:
   repository_id: 2
   commit_id: "abc123"
   data: {}
-  aasm_state: "in_progress"
+  aasm_state: "started"
   error_count: 1
   passed: false
   created_at: <%= Time.now %>
