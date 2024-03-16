@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get '/auth/:provider/callback', to: 'auth#callback', as: :callback_auth
     delete '/auth', to: 'auth#destroy', as: :destroy_user_session
 
-    resources :repositories do
+    resources :repositories, only: %i[create index new show] do
       resources :checks, only: %i[create show]
     end
   end
