@@ -20,5 +20,5 @@ class Repository::Check < ApplicationRecord
     end
   end
 
-  belongs_to :repository, class_name: 'Repository'
+  belongs_to :repository
 end
