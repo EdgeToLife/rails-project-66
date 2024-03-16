@@ -3,8 +3,8 @@
 class RepositoryAnalyzerJob < ApplicationJob
   queue_as :default
 
-  def perform(check, user_id)
-    user = User.find(user_id)
+  def perform(check)
+    user = check.repository.user
     client = Octokit::Client.new(access_token: user.token, auto_paginate: true)
     repo_full_name = check.repository.full_name
     download_path = prepare_download_path(repo_full_name)

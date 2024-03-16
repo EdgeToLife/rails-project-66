@@ -4,8 +4,8 @@ class CreateRepositoryWebhookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(repository, user_id)
-    user = User.find(user_id)
+  def perform(repository)
+    user = repository.user
     client = Octokit::Client.new access_token: user.token, auto_paginate: true
     repo_full_name = update_repository_info(repository, client)
 

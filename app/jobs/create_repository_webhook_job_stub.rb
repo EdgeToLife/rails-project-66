@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateRepositoryWebhookJobStub < ApplicationJob
-  def self.perform_later(repository, _user_id)
+  def self.perform_later(repository)
     repository.update!(
       name: 'Test',
       language: 'ruby',

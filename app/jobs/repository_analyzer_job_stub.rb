@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RepositoryAnalyzerJobStub < ApplicationJob
-  def self.perform_later(check, _user_id)
+  def self.perform_later(check)
     Rails.logger.debug 'OLOLOSH RepositoryAnalyzerJobStub class'
     check = Repository::Check.new(
       repository_id: check.repository_id,

@@ -4,7 +4,7 @@ module Api
   class ChecksController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    def checks
+    def create
       payload = JSON.parse(request.body.read)
       repo_id = payload['repository']['id']
       repository = Repository.find_by(github_id: repo_id)
