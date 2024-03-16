@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_12_085426) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_16_212528) do
   create_table "repositories", force: :cascade do |t|
     t.string "name"
     t.string "full_name"
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_12_085426) do
     t.string "ssh_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "state"
+    t.integer "last_check"
     t.integer "user_id", null: false
     t.integer "github_id"
     t.index ["user_id"], name: "index_repositories_on_user_id"

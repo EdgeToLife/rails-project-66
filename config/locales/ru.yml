@@ -50,7 +50,7 @@ ru:
         name: 'Название'
         new_repository: 'Добавить'
         not_allowed: 'Вы не авторизованы'
-        state: 'Статус последней проверки'
+        last_check: 'Статус последней проверки'
       new:
         create_repository: 'Добавить репозиторий'
         not_allowed: 'Вы не авторизованы'

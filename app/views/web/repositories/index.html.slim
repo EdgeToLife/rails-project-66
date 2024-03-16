@@ -6,10 +6,10 @@ table.table.table-striped.table-hover.mb-5
     tr
       th{ scope = 'col' } = t('.name')
       th{ scope = 'col' } = t('.language')
-      th{ scope = 'col' } = t('.state')
+      th{ scope = 'col' } = t('.last_check')
   tbody
     - @repositories.each_with_index do |repository, _i|
       tr
         td = link_to repository.name, repository_path(repository)
         td = repository.language
-        td = repository.state == 1 ? 'true' : 'false'
+        td = repository.last_check == 1 ? 'true' : 'false'

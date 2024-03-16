@@ -61,9 +61,9 @@ class RepositoryAnalyzerJob < ApplicationJob
   def notify_user(check, user)
     if check.error_count.positive?
       CheckMailer.with(user:, repository: check.repository[:full_name]).check_fail_notification.deliver_now
-      check.repository.update!(state: false)
+      check.repository.update!(last_check: false)
     else
-      check.repository.update!(state: true)
+      check.repository.update!(last_check: true)
     end
     check.finish!
   end

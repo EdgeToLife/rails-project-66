@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   namespace :api do
-    post 'checks', to: 'checks#checks'
+    resource :checks, only: %i[create]
+    # post 'checks', to: 'checks#checks'
   end
 
   scope module: :web do

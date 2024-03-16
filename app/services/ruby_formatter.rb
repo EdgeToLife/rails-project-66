@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class RubyFormatter
-  def self.format_data(data, base_path)
+  def self.format_data(data, _base_path)
     formatted_data = data['files'].filter_map do |file|
       offenses = file['offenses']
       next unless offenses.any?
 
       file_path = file['path']
-      relative_path = file_path.sub(base_path.to_s, '')
+      relative_path = file_path.split('/')[4..-1].join('/')
 
       messages = offenses.map do |offense|
         {

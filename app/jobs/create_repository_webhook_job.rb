@@ -10,7 +10,7 @@ class CreateRepositoryWebhookJob < ApplicationJob
     repo_full_name = update_repository_info(repository, client)
 
     webhook_url = url_for(controller: 'api/checks',
-                          action: 'checks',
+                          action: 'create',
                           host: ENV.fetch('BASE_URL', nil),
                           only_path: false)
     webhook_options = {
