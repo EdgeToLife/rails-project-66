@@ -2,5 +2,6 @@
 
 module Web
   class ApplicationController < ApplicationController
+    include AuthConcern
   end
 end
