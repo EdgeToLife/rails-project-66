@@ -26,11 +26,6 @@ module Web
     def create
       github_id = params[:repository][:github_id]
 
-      if github_id.blank?
-        redirect_to new_repository_path, alert: t('.repository_required')
-        return
-      end
-
       existing_repository = current_user.repositories.find_by(github_id:)
 
       if existing_repository
@@ -45,7 +40,7 @@ module Web
           create_repository_webhook_job.perform_later(@repository, current_user.id)
           redirect_to repositories_url, notice: t('.create_success')
         else
-          render :new, status: :unprocessable_entity
+          redirect_to new_repository_path, alert: t('.repository_required')
         end
       end
     end
