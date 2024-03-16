@@ -32,8 +32,6 @@ module Web
         redirect_to repositories_url, alert: t('.repository_already_added')
       else
         @repository = current_user.repositories.new(repository_params)
-        @repository.name = '-'
-        @repository.language = nil
 
         if @repository.save
           create_repository_webhook_job = ApplicationContainer[:create_repository_webhook_job]
