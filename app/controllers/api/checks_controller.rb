@@ -1,26 +1,24 @@
 # frozen_string_literal: true
 
 module Api
-  module Repositories
-    class ChecksController < ApplicationController
-      skip_before_action :verify_authenticity_token
+  class ChecksController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
-      def create
-        payload = JSON.parse(request.body.read)
-        repo_id = payload['repository']['id']
-        repository = Repository.find_by(github_id: repo_id)
+    def create
+      payload = JSON.parse(request.body.read)
+      repo_id = payload['repository']['id']
+      repository = Repository.find_by(github_id: repo_id)
 
-        if repository.nil?
-          render json: { error: 'Repository not found' }, status: :not_found
-          return
-        end
+      return if repository.nil?
 
-        check = repository.checks.build
+      check = repository.checks.build
+
+      if check.save!
         repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
-        repository_analyzer_job.perform_later(check, repository.user.id)
-
-        head :ok
+        repository_analyzer_job.perform_later(check)
       end
+
+      head :ok
     end
   end
 end
