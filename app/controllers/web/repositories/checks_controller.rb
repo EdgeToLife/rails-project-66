@@ -19,19 +19,12 @@ module Web
         repository = current_user.repositories.find(params[:repository_id])
         check = repository.checks.build
         repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
-        repository_analyzer_job.perform_later(check)
-        redirect_to repository_path(params[:repository_id]), notice: t('.check_started')
-      end
-
-      def finished
-        @check = Check.find(params[:id])
-        @check.finished! if @check.may_finish?
-      end
-
-      private
-
-      def repository_check_params
-        params.require(:repository).permit(:repository_id, :id)
+        if check.save
+          repository_analyzer_job.perform_later(check)
+          redirect_to repository_path(params[:repository_id]), notice: t('.check_started')
+        else
+          redirect_to repository_path(params[:repository_id], notice: t('.check_not_started'))
+        end
       end
     end
   end

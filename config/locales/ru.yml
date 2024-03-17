@@ -25,6 +25,7 @@ ru:
       checks:
         create:
           check_started: 'Проверка начата'
+          check_not_started: 'Не удалось запустить проверку'
         show:
           aasm_state: 'Статус'
           back_to_repo: 'Перейти к репозиторию'
