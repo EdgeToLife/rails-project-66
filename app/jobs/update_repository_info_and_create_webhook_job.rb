@@ -7,18 +7,18 @@ class UpdateRepositoryInfoAndCreateWebhookJob < ApplicationJob
   def perform(repository)
     user = repository.user
     client = Octokit::Client.new access_token: user.token, auto_paginate: true
-    repo_full_name = update_repository_info(repository, client)
+    update_repository_info(repository, client)
+    repo_full_name = repository.full_name
 
-    webhook_url = url_for(controller: 'api/checks',
-                          action: 'create',
-                          host: ENV.fetch('BASE_URL', nil),
-                          only_path: false)
+    webhook_url = api_checks_url(host: ENV.fetch('BASE_URL', nil), only_path: false)
     webhook_options = {
       url: webhook_url,
       content_type: 'json',
       events: ['commit']
     }
-    client.create_hook(repo_full_name, 'web', webhook_options)
+
+    exist_hook_urls = client.hooks(repo_full_name).map { |hook| hook[:config][:url] }
+    client.create_hook(repo_full_name, 'web', webhook_options) unless exist_hook_urls.include?(webhook_url)
   rescue StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
   end
@@ -34,6 +34,5 @@ class UpdateRepositoryInfoAndCreateWebhookJob < ApplicationJob
       ssh_url: repo_info.ssh_url,
       full_name: repo_info.full_name
     )
-    repo_info.full_name
   end
 end
