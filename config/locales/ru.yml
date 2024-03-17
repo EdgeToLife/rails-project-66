@@ -21,24 +21,24 @@ ru:
   web:
     auth:
       success: 'Успешно'
-    checks:
-      create:
-        check_started: 'Проверка начата'
-      show:
-        aasm_state: 'Статус'
-        back_to_repo: 'Перейти к репозиторию'
-        check: 'Проверка'
-        check_not_completed: 'Проверка еще не завершена'
-        passed: 'Проверка пройдена'
-        commit_id: 'ID коммита'
-        create_at: 'Дата создания'
-        errors_count: 'Количество замечаний'
-        line: 'Строка и символ'
-        message: 'Сообщение'
-        no_check_available: 'Нечего тут показать, мой дорогой друг'
-        not_allowed: 'Вы не авторизованы'
-        rule_id: 'Идентификатор правила'
     repositories:
+      checks:
+        create:
+          check_started: 'Проверка начата'
+        show:
+          aasm_state: 'Статус'
+          back_to_repo: 'Перейти к репозиторию'
+          check: 'Проверка'
+          check_not_completed: 'Проверка еще не завершена'
+          passed: 'Проверка пройдена'
+          commit_id: 'ID коммита'
+          create_at: 'Дата создания'
+          errors_count: 'Количество замечаний'
+          line: 'Строка и символ'
+          message: 'Сообщение'
+          no_check_available: 'Нечего тут показать, мой дорогой друг'
+          not_allowed: 'Вы не авторизованы'
+          rule_id: 'Идентификатор правила'
       create:
         create_success: 'Репозиторий создан'
         repository_already_added: 'Этот репозиторий уже добавлен'

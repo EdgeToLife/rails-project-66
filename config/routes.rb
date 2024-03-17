@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resource :checks, only: %i[create]
-    # post 'checks', to: 'checks#checks'
   end
 
   scope module: :web do
@@ -16,7 +15,7 @@ Rails.application.routes.draw do
     delete '/auth', to: 'auth#destroy', as: :destroy_user_session
 
     resources :repositories, only: %i[create index new show] do
-      resources :checks, only: %i[create show]
+      resources :checks, module: :repositories, only: %i[create show]
     end
   end
 end
