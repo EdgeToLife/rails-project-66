@@ -3,9 +3,7 @@
 class OctokitClientStub
   attr_reader :options
 
-  def initialize(options = {})
-    @options = options
-  end
+  def initialize(*); end
 
   def repos
     json = Rails.root.join('test/fixtures/files/response.json').read
