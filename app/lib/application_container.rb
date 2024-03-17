@@ -6,10 +6,10 @@ class ApplicationContainer
   if Rails.env.test?
     register :octokit, -> { OctokitClientStub }
     register :repository_analyzer_job, -> { RepositoryAnalyzerJobStub }
-    register :create_repository_webhook_job, -> { CreateRepositoryWebhookJobStub }
+    register :update_repository_info_and_create_webhook_job, -> { UpdateRepositoryInfoAndCreateWebhookJobStub }
   else
     register :octokit, -> { Octokit::Client }
     register :repository_analyzer_job, -> { RepositoryAnalyzerJob }
-    register :create_repository_webhook_job, -> { CreateRepositoryWebhookJob }
+    register :update_repository_info_and_create_webhook_job, -> { UpdateRepositoryInfoAndCreateWebhookJob }
   end
 end

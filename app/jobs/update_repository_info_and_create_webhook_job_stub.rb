@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateRepositoryWebhookJobStub < ApplicationJob
+class UpdateRepositoryInfoAndCreateWebhookJobStub < ApplicationJob
   def self.perform_later(repository)
     repository.update!(
       name: 'Test',

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateRepositoryWebhookJob < ApplicationJob
+class UpdateRepositoryInfoAndCreateWebhookJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
