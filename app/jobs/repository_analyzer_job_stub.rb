@@ -2,7 +2,6 @@
 
 class RepositoryAnalyzerJobStub < ApplicationJob
   def self.perform_later(check)
-    Rails.logger.debug 'OLOLOSH RepositoryAnalyzerJobStub class'
     check = Repository::Check.new(
       repository_id: check.repository_id,
       commit_id: '2b38583',
