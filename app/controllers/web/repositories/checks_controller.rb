@@ -3,6 +3,7 @@
 module Web
   module Repositories
     class ChecksController < ApplicationController
+      helper ChecksHelper
       before_action :user_authorize
 
       def show

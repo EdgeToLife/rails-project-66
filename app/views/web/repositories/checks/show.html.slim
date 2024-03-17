@@ -18,7 +18,7 @@ table.table
         td = @check.error_count
       tr
         td = t('.commit_id')
-        td = link_to @check.commit_id.to_s, "https://github.com/#{@check.repository.full_name}/commit/#{@check.commit_id}", target: '_blank', rel: 'noopener'
+        td= link_to @check.commit_id.to_s, github_commit_link(@check), target: '_blank', rel: 'noopener'
 - if @check.data.present?
   table.table
     thead
