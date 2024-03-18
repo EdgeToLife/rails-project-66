@@ -48,7 +48,7 @@ class RepositoryAnalyzerJob < ApplicationJob
     clone_url = client.repository(repo_full_name)['clone_url']
     cmd = "git clone #{clone_url} #{download_path}"
 
-    stdout, exit_status = open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
+    open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
       [inner_stdout.read, wait_thr.value]
     end
   end
@@ -56,10 +56,10 @@ class RepositoryAnalyzerJob < ApplicationJob
   def make_linter_cmd(check, download_path)
     if check.repository.language == 'javascript'
       eslintrc_path = Rails.root.join('.eslintrc.yml')
-      cmd = "npx eslint #{download_path} --no-eslintrc --config #{eslintrc_path} -f json"
+      "npx eslint #{download_path} --no-eslintrc --config #{eslintrc_path} -f json"
     elsif check.repository.language == 'ruby'
       rubocop_conf_path = Rails.root.join('.rubocop_ext.yml')
-      cmd = "rubocop #{download_path} -c #{rubocop_conf_path} --format json"
+      "rubocop #{download_path} -c #{rubocop_conf_path} --format json"
     end
   end
 
@@ -71,7 +71,7 @@ class RepositoryAnalyzerJob < ApplicationJob
     data = JSON.parse(stdout)
     formatter_class_name = "#{check.repository.language.capitalize}Formatter"
     formatter_class = formatter_class_name.safe_constantize
-    formatted_data, total_error_count = formatter_class.format_data(data, download_path)
+    formatter_class.format_data(data, download_path)
   end
 
   def prepare_download_path(repo_full_name)

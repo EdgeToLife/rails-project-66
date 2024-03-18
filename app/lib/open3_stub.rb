@@ -15,9 +15,9 @@ class Open3Stub
     if cmd.include?('git')
       stdout = ''
     elsif cmd.include?('rubocop')
-      stdout = File.read(Rails.root.join('test', 'fixtures', 'files', 'rubocop_result.json'))
+      stdout = Rails.root.join('test/fixtures/files/rubocop_result.json').read
     elsif cmd.include?('eslint')
-      stdout = File.read(Rails.root.join('test', 'fixtures', 'files', 'eslint_result.json'))
+      stdout = Rails.root.join('test/fixtures/files/eslint_result.json').read
     end
 
     exit_status = Open3Stub.new(0)

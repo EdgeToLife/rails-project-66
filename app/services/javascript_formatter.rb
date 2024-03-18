@@ -5,6 +5,7 @@ class JavascriptFormatter
     formatted_data = data.filter_map do |item|
       error_count = item['messages'].size
       next if error_count.zero?
+
       base_pathname = Pathname.new(base_path)
       file_pathname = Pathname.new(item['filePath'])
       relative_path = file_pathname.relative_path_from(base_pathname).to_s

@@ -7,7 +7,7 @@ class RubyFormatter
       next unless offenses.any?
 
       file_path = file['path']
-      relative_path = file_path.split('/')[4..-1].join('/')
+      relative_path = file_path.split('/')[4..].join('/')
 
       messages = offenses.map do |offense|
         {

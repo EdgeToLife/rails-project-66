@@ -1,2 +1,3 @@
 h1 = t('.dear', nickname: @user.nickname)
-p = t('.unsuccessful_check', repository: "#{link_to(@repository.name, repository_url(@repository))}").html_safe
+- repository_name = link_to(@repository.name, repository_url(@repository)).to_s
+p = t('.unsuccessful_check', repository: repository_name).html_safe

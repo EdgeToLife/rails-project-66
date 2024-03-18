@@ -9,8 +9,7 @@ class OctokitClientStub
     MyCommit.new('fcad3c9fc799961f89be4131cea224a2ad3f2ade')
   end
 
-  def create_hook(_repo_full_name, _, _webhook_options)
-  end
+  def create_hook(_repo_full_name, _, _webhook_options); end
 
   def hooks(_repo_gull_name)
     []

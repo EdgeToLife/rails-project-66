@@ -13,9 +13,7 @@ module Api
 
       check = repository.checks.build
 
-      if check.save!
-        RepositoryAnalyzerJob.perform_later(check)
-      end
+      RepositoryAnalyzerJob.perform_later(check) if check.save!
 
       head :ok
     end
