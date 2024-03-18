@@ -46,13 +46,6 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should check repository' do
-    sign_in @user
-    post repository_checks_path(@repository)
-    assert_response :redirect
-    assert_redirected_to repository_path(@repository)
-  end
-
   # test 'should analyze repository' do
   #   sign_in @user
   #   ApplicationContainer.resolve(:repository_analyzer_job).perform_later(@check)

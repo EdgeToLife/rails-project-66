@@ -14,4 +14,11 @@ class ChecksControllerTest < ActionDispatch::IntegrationTest
     get repository_check_url(repository_id: @check.repository_id, id: @check.id)
     assert_response :success
   end
+
+  test 'should create check repository' do
+    sign_in @user
+    post repository_checks_path(@repository)
+    assert_response :redirect
+    assert_redirected_to repository_path(@repository)
+  end
 end
