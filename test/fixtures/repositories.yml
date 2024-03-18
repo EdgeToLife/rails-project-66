@@ -11,15 +11,3 @@ one:
   last_check: true
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
-
-two:
-  id: 2
-  name: repo2
-  full_name: OwnerOne/repo2
-  language: Ruby
-  git_url: https://repo2url/
-  ssh_url: ssh://repo2url/
-  user: one
-  last_check: false
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
