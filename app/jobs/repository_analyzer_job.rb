@@ -30,10 +30,13 @@ class RepositoryAnalyzerJob < ApplicationJob
   private
 
   def analyze_repository(client, check, download_path)
+    open3 = ApplicationContainer[:open3]
     cmd = make_linter_cmd(check, download_path)
-    stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
+
+    stdout, exit_status = open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
       [inner_stdout.read, wait_thr.value]
     end
+
     passed = exit_status.success?
     commit_id = client.commits(check.repository[:full_name]).first.sha[0, 7]
     data, error_count = parse_check_data(check, stdout, download_path)
@@ -41,9 +44,11 @@ class RepositoryAnalyzerJob < ApplicationJob
   end
 
   def download_repository(client, repo_full_name, download_path)
-    clone_url = client.repository(repo_full_name).clone_url
+    open3 = ApplicationContainer[:open3]
+    clone_url = client.repository(repo_full_name)['clone_url']
     cmd = "git clone #{clone_url} #{download_path}"
-    stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
+
+    stdout, exit_status = open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
       [inner_stdout.read, wait_thr.value]
     end
   end

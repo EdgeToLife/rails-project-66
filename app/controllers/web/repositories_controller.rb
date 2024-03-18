@@ -34,8 +34,7 @@ module Web
         @repository = current_user.repositories.new(repository_params)
 
         if @repository.save
-          create_repository_webhook_job = ApplicationContainer[:update_repository_info_and_create_webhook_job]
-          create_repository_webhook_job.perform_later(@repository)
+          UpdateRepositoryInfoAndCreateWebhookJob.perform_later(@repository)
           redirect_to repositories_url, notice: t('.create_success')
         else
           redirect_to new_repository_path, alert: t('.repository_required')

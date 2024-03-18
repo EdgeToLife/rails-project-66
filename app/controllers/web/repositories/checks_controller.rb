@@ -19,9 +19,8 @@ module Web
       def create
         repository = current_user.repositories.find(params[:repository_id])
         check = repository.checks.build
-        repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
         if check.save
-          repository_analyzer_job.perform_later(check)
+          RepositoryAnalyzerJob.perform_later(check)
           redirect_to repository_path(params[:repository_id]), notice: t('.check_started')
         else
           redirect_to repository_path(params[:repository_id], notice: t('.check_not_started'))

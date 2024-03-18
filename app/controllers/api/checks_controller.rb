@@ -14,8 +14,7 @@ module Api
       check = repository.checks.build
 
       if check.save!
-        repository_analyzer_job = ApplicationContainer[:repository_analyzer_job]
-        repository_analyzer_job.perform_later(check)
+        RepositoryAnalyzerJob.perform_later(check)
       end
 
       head :ok

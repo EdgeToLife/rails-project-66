@@ -8,6 +8,7 @@ repo_one:
   ssh_url: ssh://repo1url/repo1.git
   user: one
   last_check: true
+  github_id: 123
 
 repo_two:
   name: two
@@ -17,3 +18,4 @@ repo_two:
   ssh_url: ssh://repo1url/repo1.git
   user: one
   last_check: true
+  github_id: 321
