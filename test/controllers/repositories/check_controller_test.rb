@@ -5,8 +5,8 @@ require 'test_helper'
 class ChecksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    repository = repositories(:repo_one)
-    @check = repository.checks.last
+    @repository = repositories(:repo_one)
+    @check = repository_checks(:one)
   end
 
   test 'should show check' do
