@@ -1,13 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id: 1
-  name: repo1
+repo_one:
+  name: one
   full_name: OwnerOne/repo1
   language: ruby
   git_url: https://repo1url/repo1.git
   ssh_url: ssh://repo1url/repo1.git
   user: one
   last_check: true
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+
+repo_two:
+  name: two
+  full_name: OwnerOne/repo2
+  language: javascript
+  git_url: https://repo1url/repo1.git
+  ssh_url: ssh://repo1url/repo1.git
+  user: one
+  last_check: true

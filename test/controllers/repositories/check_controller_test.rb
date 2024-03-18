@@ -5,7 +5,7 @@ require 'test_helper'
 class ChecksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    repository = repositories(:one)
+    repository = repositories(:repo_one)
     @check = repository.checks.last
   end
 

@@ -5,7 +5,7 @@ require 'test_helper'
 class RepositoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    @repository = repositories(:one)
+    @repository = repositories(:repo_one)
     @check = @repository.checks.last
     fixture_path = 'files/response.json'
     @fixture_data = load_fixture(fixture_path)
