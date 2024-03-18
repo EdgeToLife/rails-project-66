@@ -7,7 +7,6 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
     @user = users(:one)
     @repository = repositories(:one)
     @check = @repository.checks.last
-    @creator = @repository.user
     fixture_path = 'files/response.json'
     @fixture_data = load_fixture(fixture_path)
     @parsed_data = JSON.parse(@fixture_data)
