@@ -47,13 +47,4 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
     get repository_url(@repository)
     assert_response :success
   end
-
-  # test 'should analyze repository' do
-  #   sign_in @user
-  #   ApplicationContainer.resolve(:repository_analyzer_job).perform_later(@check)
-  #   expected_value = true
-  #   actual_value = @check.passed
-
-  #   assert_equal expected_value, actual_value
-  # end
 end

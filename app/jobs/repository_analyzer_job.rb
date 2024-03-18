@@ -6,11 +6,12 @@ class RepositoryAnalyzerJob < ApplicationJob
   def perform(check)
     check.to_start!
     user = check.repository.user
-    client = Octokit::Client.new(access_token: user.token, auto_paginate: true)
+    octokit = ApplicationContainer[:octokit]
+    client = octokit.new(access_token: user.token, auto_paginate: true)
     repo_full_name = check.repository.full_name
     download_path = prepare_download_path(repo_full_name)
     FileUtils.mkdir_p(download_path)
-    download_repository(client, repo_full_name, '', download_path)
+    download_repository(client, repo_full_name, download_path)
     analyze_repository(client, check, download_path)
   rescue StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
@@ -39,20 +40,11 @@ class RepositoryAnalyzerJob < ApplicationJob
     check.update!(data:, error_count:, commit_id:, passed:)
   end
 
-  def download_repository(client, repo_full_name, path, download_path)
-    repository_contents = client.contents(repo_full_name, path:)
-
-    repository_contents.each do |file|
-      file_path = File.join(download_path, file.name)
-
-      if file.type == 'file'
-        repository_content = client.contents(repo_full_name, path: file.path)
-        File.write(file_path, Base64.decode64(repository_content.content).force_encoding(Encoding::UTF_8))
-        Rails.logger.debug file_path
-      elsif file.type == 'dir'
-        FileUtils.mkdir_p(file_path)
-        download_repository(client, repo_full_name, file.path, file_path)
-      end
+  def download_repository(client, repo_full_name, download_path)
+    clone_url = client.repository(repo_full_name).clone_url
+    cmd = "git clone #{clone_url} #{download_path}"
+    stdout, exit_status = Open3.popen3(cmd) do |_stdin, inner_stdout, _stderr, wait_thr|
+      [inner_stdout.read, wait_thr.value]
     end
   end
 

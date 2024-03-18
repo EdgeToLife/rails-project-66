@@ -14,6 +14,7 @@ The demonstration project is available at the link: https://rails-github-quality
 
 - Ruby 3.2.2 environment
 - Postgre SQL 15 database
+- git
 - make
 
 # Setup
