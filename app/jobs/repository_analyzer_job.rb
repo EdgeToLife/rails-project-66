@@ -17,7 +17,13 @@ class RepositoryAnalyzerJob < ApplicationJob
     check.fail!
   ensure
     FileUtils.rm_rf(download_path)
-    notify_user(check, user)
+    if check.error_count.positive?
+      notify_user(check, user)
+      check.repository.update!(last_check: false)
+    else
+      check.repository.update!(last_check: true)
+    end
+    check.finish!
   end
 
   private
@@ -60,13 +66,7 @@ class RepositoryAnalyzerJob < ApplicationJob
   end
 
   def notify_user(check, user)
-    if check.error_count.positive?
-      CheckMailer.with(user:, repository: check.repository).check_fail_notification.deliver_now
-      check.repository.update!(last_check: false)
-    else
-      check.repository.update!(last_check: true)
-    end
-    check.finish!
+    CheckMailer.with(user:, repository: check.repository).check_fail_notification.deliver_now
   end
 
   def parse_and_update_check_data(check, data, commit_id, passed, download_path)
