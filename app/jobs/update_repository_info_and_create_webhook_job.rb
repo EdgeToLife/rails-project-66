@@ -6,7 +6,8 @@ class UpdateRepositoryInfoAndCreateWebhookJob < ApplicationJob
 
   def perform(repository)
     user = repository.user
-    client = Octokit::Client.new access_token: user.token, auto_paginate: true
+    octokit = ApplicationContainer[:octokit]
+    client = octokit.new access_token: user.token, auto_paginate: true
     update_repository_info(repository, client)
     repo_full_name = repository.full_name
 
@@ -28,11 +29,11 @@ class UpdateRepositoryInfoAndCreateWebhookJob < ApplicationJob
   def update_repository_info(repository, client)
     repo_info = client.repository(repository.github_id)
     repository.update!(
-      name: repo_info.name,
-      language: repo_info.language.downcase,
-      git_url: repo_info.git_url,
-      ssh_url: repo_info.ssh_url,
-      full_name: repo_info.full_name
+      name: repo_info['name'],
+      language: repo_info['language'].downcase,
+      git_url: repo_info['git_url'],
+      ssh_url: repo_info['ssh_url'],
+      full_name: repo_info['full_name']
     )
   end
 end

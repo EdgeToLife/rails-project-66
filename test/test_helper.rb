@@ -19,6 +19,11 @@ module ActiveSupport
     def load_fixture(filename)
       File.read(File.dirname(__FILE__) + "/fixtures/#{filename}")
     end
+
+    setup do
+      queue_adapter.perform_enqueued_jobs = true
+      queue_adapter.perform_enqueued_at_jobs = true
+    end
   end
 end
 
