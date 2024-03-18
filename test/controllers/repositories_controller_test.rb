@@ -23,7 +23,6 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
     repository_params = { repository: { link: 'https://github.com/EdgeToLife/rails-project-65' } }
     stub_request(:get, 'https://api.github.com/user/repos?per_page=100')
       .to_return(status: 200, body: @fixture_data, headers: { 'Content-Type': 'application/json' })
-    post repositories_url, params: repository_params
     get new_repository_url
     assert_response :success
   end
@@ -39,7 +38,6 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
     repository = Repository.find_by(attrs)
     assert { repository }
     assert_redirected_to repositories_path
-    assert_response :redirect
   end
 
   test 'should show repository' do
