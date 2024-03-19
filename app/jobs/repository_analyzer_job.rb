@@ -13,11 +13,6 @@ class RepositoryAnalyzerJob < ApplicationJob
     FileUtils.mkdir_p(download_path)
     download_repository(client, repo_full_name, download_path)
     analyze_repository(client, check, download_path)
-  rescue StandardError => e
-    Rails.logger.debug { "An error occurred: #{e.message}" }
-    check.fail!
-  ensure
-    FileUtils.rm_rf(download_path)
     if check.error_count.positive?
       notify_user(check, user)
       check.repository.update!(last_check: false)
@@ -25,6 +20,12 @@ class RepositoryAnalyzerJob < ApplicationJob
       check.repository.update!(last_check: true)
     end
     check.finish!
+  rescue StandardError => e
+    Rails.logger.debug { "An error occurred: #{e.message}" }
+    check.repository.update!(last_check: false)
+    check.fail!
+  ensure
+    FileUtils.rm_rf(download_path)
   end
 
   private
