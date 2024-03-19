@@ -8,7 +8,7 @@ module Repositories
       state :not_started, initial: true
       state :started, :finished, :failed
 
-      event :to_start do
+      event :start do
         transitions from: %i[not_started], to: :started
       end
 

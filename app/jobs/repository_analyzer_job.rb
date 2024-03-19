@@ -4,7 +4,7 @@ class RepositoryAnalyzerJob < ApplicationJob
   queue_as :default
 
   def perform(check)
-    check.to_start!
+    check.start!
     user = check.repository.user
     octokit = ApplicationContainer[:octokit]
     client = octokit.new(access_token: user.token, auto_paginate: true)
