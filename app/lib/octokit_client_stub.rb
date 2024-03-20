@@ -5,13 +5,13 @@ class OctokitClientStub
 
   def initialize(*); end
 
-  def commits(_repo_gull_name)
+  def commits(_repo_full_name)
     MyCommit.new('fcad3c9fc799961f89be4131cea224a2ad3f2ade')
   end
 
   def create_hook(_repo_full_name, _, _webhook_options); end
 
-  def hooks(_repo_gull_name)
+  def hooks(_repo_full_name)
     []
   end
 
