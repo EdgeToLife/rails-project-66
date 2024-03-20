@@ -26,13 +26,7 @@ class OctokitClientStub
   end
 end
 
-class MyCommit
-  attr_reader :sha
-
-  def initialize(sha)
-    @sha = sha
-  end
-
+MyCommit = Struct.new(:sha) do
   def first
     self
   end
