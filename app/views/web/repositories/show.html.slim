@@ -1,10 +1,10 @@
 mb-4
   h1
-    = @repository.full_name.present? ? @repository.full_name : '-'
+    = @repository.full_name.presence || '-'
 = link_to t('.check_repo'), repository_checks_path(@repository), class: 'btn btn-primary mb-4', data: { turbo_method: :post }
 p
   strong.me-2 = t('.full_name')
-  = @repository.full_name.present? ? @repository.full_name : '-'
+  = @repository.full_name.presence || '-'
 p
   strong.me-2 = t('.language')
   = @repository.language

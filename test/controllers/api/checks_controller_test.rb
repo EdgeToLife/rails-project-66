@@ -9,7 +9,7 @@ class ChecksControllerTest < ActionDispatch::IntegrationTest
       aasm_state: 'finished',
       passed: true,
       error_count: 0,
-      commit_id: 'fcad3c9',
+      commit_id: 'fcad3c9'
     }
     json_payload = { repository: { id: repository.github_id } }
     assert_difference('Repository::Check.count') do

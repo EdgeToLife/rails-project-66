@@ -10,6 +10,6 @@ table.table.table-striped.table-hover.mb-5
   tbody
     - @repositories.each_with_index do |repository, _i|
       tr
-        td = link_to repository.name.present? ? repository.name : '-', repository_path(repository)
+        td = link_to (repository.name.presence || '-'), repository_path(repository)
         td = repository.language
         td = repository.last_check == 1 ? 'true' : 'false'
